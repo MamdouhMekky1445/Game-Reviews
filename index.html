@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Game Review</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="./images/game_icon.png"
+    />
+
+    <!-- (1) Bootstrap Files -->
+    <link
+      rel="stylesheet"
+      href="CSS/bootstrap.min.css"
+    />
+
+    <!-- (2) Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- (3) CSS Styles -->
+    <link
+      rel="stylesheet"
+      href="CSS/style.css"
+    />
+
+    <!-- (4) Media Styles -->
+    <link
+      rel="stylesheet"
+      href="CSS/media.css"
+    />
+
+    <!-- (5) Dark light Styles -->
+    <link
+      rel="stylesheet"
+      href="CSS/light-dark.css"
+    />
+    <!-- (6) Google Fonts -->
+
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=Pacifico&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- 
+    ================================
+    💡 Project Structure Summary
+    ================================
+
+    1. <main id="main-section"> 
+       - The main container for the entire app.
+       - Dark background with full viewport height.
+
+    2. Header Section:
+       - Contains the title "Game Reviews"
+       - Includes a dynamic button group (#category-buttons) for game genres (e.g., Shooter, MMORPG)
+
+    3. Spinner Section (#spinner):
+       - Custom animated loader shown while fetching data from the API.
+
+    4. Game List Section (#game-list):
+       - Renders a grid of game cards dynamically inside #games-container.
+
+    5. Game Detail Section (#game-detail):
+       - Hidden by default.
+       - Displays full game details when a user clicks a game card.
+
+    6. Script Includes:
+       - Bootstrap bundle, Font Awesome, and the main JS entry point (app.js)
+  -->
+
+    <main
+      id="main-section"
+      class="bg-dark min-vh-100 text-white"
+      style="background-color: #272b30"
+    >
+      <!-- Background Image Wrapper (Not Sticky) -->
+      <div class="navbar-bg-wrapper">
+        <div class="container">
+          <div class="py-5"><!-- Just vertical space with background --></div>
+        </div>
+      </div>
+
+      <!-- Sticky Navbar Box (Blue, Stays on Scroll) -->
+      <div class="sticky-navbar-wrapper position-sticky top-0 z-999">
+        <div class="container">
+          <div class="navbar-box px-4 py-3 w-100">
+            <!-- ======================= DESKTOP VIEW ======================= -->
+            <div
+              class="d-none d-md-flex justify-content-between align-items-center flex-wrap"
+            >
+              <!-- Left Side: Logo + Title -->
+              <div class="d-flex align-items-center">
+                <img
+                  src="./images/imgi_2_logo-sm.png"
+                  alt="Logo"
+                  class="me-2"
+                  style="width: 40px"
+                />
+                <h2 class="text-uppercase fw-bold text-white m-0">
+                  Game Reviews
+                </h2>
+              </div>
+
+              <!-- Right Side: Category Buttons -->
+              <div
+                id="category-buttons"
+                class="btn-group flex-wrap"
+              >
+                <button
+                  class="btn category-btn active"
+                  data-category="MMORPG"
+                >
+                  MMORPG
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Shooter"
+                >
+                  SHOOTER
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Sailing"
+                >
+                  SAILING
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Permadeath"
+                >
+                  PERMADEATH
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Superhero"
+                >
+                  SUPERHERO
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Pixel"
+                >
+                  PIXEL
+                </button>
+              </div>
+            </div>
+
+            <!-- ======================= MOBILE VIEW ======================= -->
+            <div class="d-flex d-md-none flex-column">
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- Logo and Title -->
+                <div class="d-flex align-items-center">
+                  <img
+                    src="./images/imgi_2_logo-sm.png"
+                    alt="Logo"
+                    class="me-2"
+                    style="width: 40px"
+                  />
+                  <h2 class="text-uppercase fw-bold text-white m-0">
+                    Game Reviews
+                  </h2>
+                </div>
+
+                <!-- Toggle Button -->
+                <button
+                  class="btn text-white"
+                  id="toggle-navbar"
+                  aria-label="Toggle category menu"
+                >
+                  <i class="fa-solid fa-bars"></i>
+                </button>
+              </div>
+
+              <!-- Toggle Content (Mobile Only) -->
+              <div
+                id="category-buttons-mobile"
+                class="btn-group flex-wrap mt-3 d-none"
+              >
+                <button
+                  class="btn category-btn active"
+                  data-category="MMORPG"
+                >
+                  MMORPG
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Shooter"
+                >
+                  SHOOTER
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Sailing"
+                >
+                  SAILING
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Permadeath"
+                >
+                  PERMADEATH
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Superhero"
+                >
+                  SUPERHERO
+                </button>
+                <button
+                  class="btn category-btn"
+                  data-category="Pixel"
+                >
+                  PIXEL
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Spinner: shown while fetching games from the API -->
+      <div class="loader-overlay d-none">
+        <div class="loader-wrapper">
+          <div class="loader white-loader"></div>
+          <div class="loader orange-loader"></div>
+        </div>
+      </div>
+
+      <!-- Game Cards Section -->
+      <section
+        id="game-list"
+        class="container"
+      >
+        <div
+          class="row gy-4"
+          id="games-container"
+        >
+          <!-- Game Card -->
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="card text-white border-0 h-100 shadow-sm rounded-4"
+              style="background-color: #272b30"
+            >
+              <img
+                src="./images/imgi_172_thumbnail.jpg"
+                class="card-img-top rounded-top-4"
+                alt="Game Thumbnail"
+              />
+              <div
+                class="card-body d-flex flex-column justify-content-between flex-grow-1"
+              >
+                <div
+                  class="d-flex justify-content-between align-items-start mb-2"
+                >
+                  <h5 class="card-title fw-bold text-white">Ravendawn</h5>
+                  <span class="badge bg-primary text-white">Free</span>
+                </div>
+                <p class="card-text small flex-grow-1">
+                  A 2D, top-down, MMORPG, featuring homesteading, and building.
+                </p>
+                <div class="d-flex justify-content-between gap-2 mt-3">
+                  <span class="badge bg-info text-dark fw-semibold"
+                    >MMORPG</span
+                  >
+                  <span class="badge bg-light text-dark fw-semibold"
+                    >PC (Windows)</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Repeat cards as needed, same structure -->
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="card text-white border-0 h-100 shadow-sm rounded-4"
+              style="background-color: #272b30"
+            >
+              <img
+                src="./images/imgi_172_thumbnail.jpg"
+                class="card-img-top rounded-top-4"
+                alt="Game Thumbnail"
+              />
+              <div
+                class="card-body d-flex flex-column justify-content-between flex-grow-1"
+              >
+                <div
+                  class="d-flex justify-content-between align-items-start mb-2"
+                >
+                  <h5 class="card-title fw-bold text-white">Tarisland</h5>
+                  <span class="badge bg-primary text-white">Free</span>
+                </div>
+                <p class="card-text small flex-grow-1">
+                  A cross-platform MMORPG developed by Level Infinite.
+                </p>
+                <div class="d-flex justify-content-between gap-2 mt-3">
+                  <span class="badge bg-info text-dark fw-semibold"
+                    >MMORPG</span
+                  >
+                  <span class="badge bg-light text-dark fw-semibold"
+                    >PC (Windows)</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="card text-white border-0 h-100 shadow-sm rounded-4"
+              style="background-color: #272b30"
+            >
+              <img
+                src="./images/imgi_172_thumbnail.jpg"
+                class="card-img-top rounded-top-4"
+                alt="Game Thumbnail"
+              />
+              <div
+                class="card-body d-flex flex-column justify-content-between flex-grow-1"
+              >
+                <div
+                  class="d-flex justify-content-between align-items-start mb-2"
+                >
+                  <h5 class="card-title fw-bold text-white">Tarisland</h5>
+                  <span class="badge bg-primary text-white">Free</span>
+                </div>
+                <p class="card-text small flex-grow-1">
+                  A cross-platform MMORPG developed by Level
+                  Infinitecdcddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd.
+                </p>
+                <div class="d-flex justify-content-between gap-2 mt-3">
+                  <span class="badge bg-info text-dark fw-semibold"
+                    >MMORPG</span
+                  >
+                  <span class="badge bg-light text-dark fw-semibold"
+                    >PC (Windows)</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="card text-white border-0 h-100 shadow-sm rounded-4"
+              style="background-color: #272b30"
+            >
+              <img
+                src="./images/imgi_172_thumbnail.jpg"
+                class="card-img-top rounded-top-4"
+                alt="Game Thumbnail"
+              />
+              <div
+                class="card-body d-flex flex-column justify-content-between flex-grow-1"
+              >
+                <div
+                  class="d-flex justify-content-between align-items-start mb-2"
+                >
+                  <h5 class="card-title fw-bold text-white">Tarisland</h5>
+                  <span class="badge bg-primary text-white">Free</span>
+                </div>
+                <p class="card-text small flex-grow-1">
+                  A cross-platform MMORPG developed by Level Infinite.
+                </p>
+                <div class="d-flex justify-content-between gap-2 mt-3">
+                  <span class="badge bg-info text-dark fw-semibold"
+                    >MMORPG</span
+                  >
+                  <span class="badge bg-light text-dark fw-semibold"
+                    >PC (Windows)</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- More cards... -->
+        </div>
+      </section>
+
+      <section
+        id="game-detail"
+        class="d-none"
+      ></section>
+
+      <!-- Game Details Section -->
+      <section
+        id="game-detail"
+        class="container d-none"
+      >
+        <!-- One game detail will be rendered here -->
+      </section>
+    </main>
+
+    <!-- Bootstrap Bundle -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="js/all.min.js"></script>
+
+    <!-- Main App Logic -->
+    <script
+      type="module"
+      src="./JS/index.js"
+    ></script>
+  </body>
+</html>

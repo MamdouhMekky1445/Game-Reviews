@@ -1,0 +1,18 @@
+/* Responsive behavior */
+@media (max-width: 767px) {
+  #category-buttons {
+    flex-direction: column !important;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .category-btn {
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Show buttons on toggle */
+  #category-buttons.show {
+    display: flex !important;
+  }
+}
