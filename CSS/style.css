@@ -226,13 +226,17 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #1c1e22; /* Match your dark theme */
-  z-index: 9999;
+  right: 0;
+  bottom: 0;
   overflow-y: auto;
-  padding-top: 40px;
+  background-color: #1e1e1e; /* your background */
+  z-index: 9999;
+  padding: 2rem;
 }
+.game-detail-wrapper {
+  margin-bottom: 4rem;
+}
+
 
 .custom-badge {
   background-color: #0dcaf0 !important; /* same as Bootstrap bg-info */
